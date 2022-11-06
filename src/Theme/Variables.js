@@ -9,18 +9,22 @@
  * Colors
  */
 export const Colors = {
-  // Example colors:
   transparent: 'rgba(0,0,0,0)',
-  inputBackground: '#FFFFFF',
+  inputBackground: '#EFEFEF',
   white: '#ffffff',
-  text: '#212529',
-  primary: '#E14032',
+  text: '#393939',
+  primary: '#86D694',
+  accent: '#00463C',
+  light: '#FAFAFA',
+  textLight: '#BBB9BC',
+  black: '#000000',
+
   success: '#28a745',
   error: '#dc3545',
 }
 
 export const NavigationColors = {
-  primary: Colors.primary,
+  primary: Colors.light,
 }
 
 /**
