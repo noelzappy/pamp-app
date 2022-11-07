@@ -5,6 +5,10 @@
  */
 import { StyleSheet } from 'react-native'
 import buttonStyles from './components/Buttons'
+import textStyles from './components/Texts'
+
+const RADIUS = 20
+
 /**
  *
  * @param Theme can be spread like {Colors, NavigationColors, Gutters, Layout, Common, ...args}
@@ -13,6 +17,7 @@ import buttonStyles from './components/Buttons'
 export default function ({ Colors, ...args }) {
   return {
     button: buttonStyles({ Colors, ...args }),
+    text: textStyles({ Colors, ...args }),
     ...StyleSheet.create({
       backgroundPrimary: {
         backgroundColor: Colors.light,
@@ -21,14 +26,13 @@ export default function ({ Colors, ...args }) {
         backgroundColor: Colors.transparent,
       },
       textInput: {
-        borderWidth: 1,
         borderColor: Colors.text,
         backgroundColor: Colors.inputBackground,
         color: Colors.text,
-        minHeight: 50,
-        textAlign: 'center',
-        marginTop: 10,
-        marginBottom: 10,
+        minHeight: 60,
+        borderBottomWidth: 0,
+        borderRadius: RADIUS,
+        paddingHorizontal: 20,
       },
     }),
   }

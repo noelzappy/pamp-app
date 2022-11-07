@@ -8,7 +8,7 @@ import { Button, Input, Icon } from '@rneui/base'
 import { Formik } from 'formik'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Login = ({ navigation }) => {
+const Register = ({ navigation }) => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
   const dispatch = useDispatch()
@@ -18,20 +18,20 @@ const Login = ({ navigation }) => {
   const onSubmit = values => {}
 
   return (
-    <SafeAreaView
-      style={[Layout.fill, Common.backgroundPrimary, Gutters.smallHPadding]}
-    >
+    <SafeAreaView style={[Layout.fill, Common.backgroundPrimary]}>
       <CHeader
-        back={false}
-        title="Welcome"
-        subtitle="Please sign into your account"
+        title="Create New Account"
+        subtitle="Please fill the form to continue"
       />
-      <ScrollView>
+      <ScrollView contentContainerStyle={[Gutters.smallHPadding]}>
         <Spacer size={40} />
         <Formik
           initialValues={{
             email: '',
             password: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
           }}
           onSubmit={values => onSubmit(values)}
           validate={values => {
@@ -46,6 +46,21 @@ const Login = ({ navigation }) => {
             if (!values.password) {
               errors.password = 'Password is required'
             }
+
+            if (!values.firstName) {
+              errors.firstName = 'First name is required'
+            }
+
+            if (!values.lastName) {
+              errors.lastName = 'Last name is required'
+            }
+
+            if (!values.phoneNumber) {
+              errors.phoneNumber = 'Phone number is required'
+            } else if (!/^[0-9]{10}$/i.test(values.phoneNumber)) {
+              errors.phoneNumber = 'Invalid phone number'
+            }
+
             return errors
           }}
         >
@@ -59,12 +74,41 @@ const Login = ({ navigation }) => {
           }) => (
             <View>
               <Input
+                placeholder="First Name"
+                inputContainerStyle={[Common.textInput]}
+                onChangeText={handleChange('firstName')}
+                onBlur={handleBlur('firstName')}
+                value={values.firstName}
+                errorMessage={touched.firstName && errors.firstName}
+              />
+
+              <Input
+                placeholder="Last Name"
+                inputContainerStyle={[Common.textInput]}
+                onChangeText={handleChange('lastName')}
+                onBlur={handleBlur('lastName')}
+                value={values.lastName}
+                errorMessage={touched.lastName && errors.lastName}
+              />
+
+              <Input
+                placeholder="Phone Number"
+                inputContainerStyle={[Common.textInput]}
+                onChangeText={handleChange('phoneNumber')}
+                onBlur={handleBlur('phoneNumber')}
+                value={values.phoneNumber}
+                errorMessage={touched.phoneNumber && errors.phoneNumber}
+                keyboardType="phone-pad"
+              />
+
+              <Input
                 placeholder="try@pamp.com"
                 inputContainerStyle={[Common.textInput]}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
                 errorMessage={touched.email && errors.email}
+                keyboardType="email-address"
               />
 
               <Spacer size={20} />
@@ -103,7 +147,7 @@ const Login = ({ navigation }) => {
               <Spacer size={20} />
 
               <Button
-                title="Login"
+                title="Sign Up"
                 onPress={handleSubmit}
                 buttonStyle={[Common.button.large]}
               />
@@ -113,9 +157,9 @@ const Login = ({ navigation }) => {
         <Spacer size={20} />
         <Text
           style={[Fonts.textCenter]}
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => navigation.navigate('Login')}
         >
-          Don't have and account?
+          Have an account?
           <Text
             style={[
               Fonts.textCenter,
@@ -125,7 +169,7 @@ const Login = ({ navigation }) => {
             ]}
           >
             {' '}
-            Sign Up
+            Login
           </Text>
         </Text>
       </ScrollView>
@@ -133,4 +177,4 @@ const Login = ({ navigation }) => {
   )
 }
 
-export default Login
+export default Register

@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
-import Wrapper from '@/Components/Wrapper'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ExampleContainer = () => {
   const { t } = useTranslation()
@@ -11,7 +11,7 @@ const ExampleContainer = () => {
   const dispatch = useDispatch()
 
   return (
-    <Wrapper>
+    <SafeAreaView style={[Layout.fill, Common.backgroundPrimary]}>
       <ScrollView
         style={Layout.fill}
         contentContainerStyle={[
@@ -24,7 +24,7 @@ const ExampleContainer = () => {
           DarkMode :
         </Text>
       </ScrollView>
-    </Wrapper>
+    </SafeAreaView>
   )
 }
 

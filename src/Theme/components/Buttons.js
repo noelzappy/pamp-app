@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
 
+const RADIUS = 20
+
 export default function ({ Colors, Gutters, Layout }) {
   const base = {
     ...Layout.center,
@@ -9,12 +11,24 @@ export default function ({ Colors, Gutters, Layout }) {
   }
   const rounded = {
     ...base,
-    borderRadius: 20,
+    borderRadius: RADIUS,
+  }
+  const large = {
+    ...base,
+    borderRadius: RADIUS,
+    height: 60,
+  }
+
+  const danger = {
+    ...base,
+    backgroundColor: Colors.danger,
   }
 
   return StyleSheet.create({
     base,
     rounded,
+    large,
+    danger,
     outline: {
       ...base,
       backgroundColor: Colors.transparent,
