@@ -97,6 +97,8 @@ function MyTabBar({ state, descriptors, navigation }) {
                 Layout.justifyContentCenter,
                 Layout.alignItemsCenter,
               ]}
+              activeOpacity={0.8}
+              disabled={isFocused}
             >
               <Icon
                 {...iconName()}
