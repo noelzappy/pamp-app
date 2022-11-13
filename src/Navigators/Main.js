@@ -56,9 +56,9 @@ function MyTabBar({ state, descriptors, navigation }) {
         const iconName = () => {
           switch (index) {
             case 0:
-              return { name: 'home', type: 'feather' }
+              return { name: 'home', type: 'antdesign' }
             case 1:
-              return { name: 'add-circle-outline', type: 'ionicon' }
+              return { name: 'pluscircleo', type: 'antdesign' }
             case 2:
               return { name: 'hearto', type: 'antdesign' }
             case 3:
@@ -100,8 +100,8 @@ function MyTabBar({ state, descriptors, navigation }) {
             >
               <Icon
                 {...iconName()}
-                size={20}
-                color={isFocused ? Colors.light : Colors.text}
+                size={isFocused ? 20 : 25}
+                color={isFocused ? Colors.light : Colors.primary}
               />
 
               {isFocused && (
