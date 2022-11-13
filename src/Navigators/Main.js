@@ -1,12 +1,11 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Home } from '@/Containers'
 import { View, Text, TouchableOpacity } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-
 import { useTheme } from '@/Hooks'
 import { Icon } from '@rneui/base'
 import { height } from '@/Utils/dimensions'
+import { Home, Bookings, Favorites, Settings } from '@/Containers'
 
 const Tab = createBottomTabNavigator()
 
@@ -79,6 +78,7 @@ function MyTabBar({ state, descriptors, navigation }) {
                     borderRadius: 20,
                   }
                 : {},
+              Gutters.smallHPadding,
             ]}
             key={index}
             animation={isFocused ? 'zoomIn' : undefined}
@@ -111,8 +111,8 @@ function MyTabBar({ state, descriptors, navigation }) {
                     Common.text.base,
                     {
                       color: Colors.light,
+                      marginLeft: 5,
                     },
-                    Gutters.smallLMargin,
                   ]}
                 >
                   {label}
@@ -137,9 +137,9 @@ const MainNavigator = () => {
       tabBar={props => <MyTabBar {...props} />}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Plus" component={Home} />
-      <Tab.Screen name="Holes" component={Home} />
-      <Tab.Screen name="Joker" component={Home} />
+      <Tab.Screen name="Bookings" component={Bookings} />
+      <Tab.Screen name="Favorites" component={Favorites} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   )
 }
