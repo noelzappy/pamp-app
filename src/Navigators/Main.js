@@ -58,7 +58,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             case 0:
               return { name: 'home', type: 'antdesign' }
             case 1:
-              return { name: 'pluscircleo', type: 'antdesign' }
+              return { name: 'calendar', type: 'antdesign' }
             case 2:
               return { name: 'hearto', type: 'antdesign' }
             case 3:
