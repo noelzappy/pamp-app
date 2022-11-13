@@ -1,21 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { CHeader, Spacer } from '@/Components'
 import { useTheme } from '@/Hooks'
-import { Button, Input, Icon } from '@rneui/base'
+import { Button, Input, Icon, CheckBox } from '@rneui/base'
 import { Formik } from 'formik'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRegisterMutation } from '@/Services/modules/auth'
+import { displayError } from '@/Utils/errors'
+import { setCredentials } from '@/Store/Auth'
 
 const Register = ({ navigation }) => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
   const dispatch = useDispatch()
 
+  const [register, { isLoading, error }] = useRegisterMutation()
+
   const [showPassword, setShowPassword] = useState(false)
 
-  const onSubmit = values => {}
+  const [agreedToTerms, setAgreedToTerms] = useState(true)
+  const [receivePushNotifications, setReceivePushNotifications] =
+    useState(false)
+
+  useEffect(() => {
+    if (error) {
+      displayError(error)
+    }
+  }, [error])
+
+  const onSubmit = async values => {
+    const { data } = await register(values)
+
+    dispatch(setCredentials(data))
+  }
 
   return (
     <SafeAreaView style={[Layout.fill, Common.backgroundPrimary]}>
@@ -23,8 +42,12 @@ const Register = ({ navigation }) => {
         title="Create New Account"
         subtitle="Please fill the form to continue"
       />
-      <ScrollView contentContainerStyle={[Gutters.smallHPadding]}>
-        <Spacer size={40} />
+      <ScrollView
+        contentContainerStyle={[Gutters.smallHPadding]}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <Spacer size={20} />
         <Formik
           initialValues={{
             email: '',
@@ -111,8 +134,6 @@ const Register = ({ navigation }) => {
                 keyboardType="email-address"
               />
 
-              <Spacer size={20} />
-
               <Input
                 placeholder="Password"
                 inputContainerStyle={[Common.textInput]}
@@ -130,26 +151,47 @@ const Register = ({ navigation }) => {
                   />
                 }
               />
-              <Spacer size={20} />
 
-              <View style={[Gutters.regularHPadding]}>
-                <Text
-                  style={[
-                    Fonts.textRight,
-                    {
-                      color: Colors.textLight,
-                    },
-                  ]}
-                >
-                  Forgot Password
-                </Text>
-              </View>
+              <CheckBox
+                title={
+                  <Text style={[Fonts.textSmall, Common.textLight]}>
+                    I agree to the{' '}
+                    <Text style={[Fonts.textSmall, Common.text.primary]}>
+                      Terms of Service
+                    </Text>{' '}
+                    and{' '}
+                    <Text style={[Fonts.textSmall, Common.text.primary]}>
+                      Privacy Policy
+                    </Text>
+                  </Text>
+                }
+                checked={agreedToTerms}
+                onPress={() => setAgreedToTerms(!agreedToTerms)}
+                checkedColor={Colors.primary}
+              />
+
+              <CheckBox
+                title={
+                  <Text style={[Fonts.textSmall, Common.textLight]}>
+                    I agree to receive marketing notifications with offers and
+                    news
+                  </Text>
+                }
+                checked={receivePushNotifications}
+                onPress={() =>
+                  setReceivePushNotifications(!receivePushNotifications)
+                }
+                checkedColor={Colors.primary}
+              />
+
               <Spacer size={20} />
 
               <Button
                 title="Sign Up"
                 onPress={handleSubmit}
                 buttonStyle={[Common.button.large]}
+                loading={isLoading}
+                disabled={!agreedToTerms}
               />
             </View>
           )}

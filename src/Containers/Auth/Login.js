@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { CHeader, Spacer } from '@/Components'
 import { useTheme } from '@/Hooks'
-import { Button, Input, Icon } from '@rneui/base'
+import { Button, Input, Icon, CheckBox } from '@rneui/base'
 import { Formik } from 'formik'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useLoginMutation } from '@/Services/modules/auth'
+import { setCredentials } from '@/Store/Auth'
+import { displayError } from '@/Utils/errors'
 
 const Login = ({ navigation }) => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
   const dispatch = useDispatch()
 
+  const [login, { isLoading, error }] = useLoginMutation()
+
   const [showPassword, setShowPassword] = useState(false)
 
-  const onSubmit = values => {}
+  const onSubmit = async values => {
+    const { data } = await login(values)
+
+    dispatch(setCredentials(data))
+  }
+
+  useEffect(() => {
+    if (error) {
+      displayError(error)
+    }
+  }, [error])
 
   return (
     <SafeAreaView
@@ -26,7 +41,10 @@ const Login = ({ navigation }) => {
         title="Welcome"
         subtitle="Please sign into your account"
       />
-      <ScrollView>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
         <Spacer size={40} />
         <Formik
           initialValues={{
@@ -105,6 +123,7 @@ const Login = ({ navigation }) => {
               <Button
                 title="Login"
                 onPress={handleSubmit}
+                loading={isLoading}
                 buttonStyle={[Common.button.large]}
               />
             </View>

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { clearCredentials } from '@/Store/Auth'
 
 const ExampleContainer = () => {
   const { t } = useTranslation()
@@ -20,8 +21,11 @@ const ExampleContainer = () => {
           Gutters.smallHPadding,
         ]}
       >
-        <Text style={[Fonts.textRegular, Gutters.smallBMargin]}>
-          DarkMode :
+        <Text
+          style={[Fonts.textRegular, Gutters.smallBMargin]}
+          onPress={() => dispatch(clearCredentials())}
+        >
+          LOGOUT :
         </Text>
       </ScrollView>
     </SafeAreaView>
