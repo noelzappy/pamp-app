@@ -61,6 +61,12 @@ export default function ({ MetricsSizes }) {
         [`${key}HPadding`]: {
           paddingHorizontal: value,
         },
+        [`${key}Padding`]: {
+          padding: value,
+        },
+        [`${key}Margin`]: {
+          margin: value,
+        },
       }),
       {},
     ),

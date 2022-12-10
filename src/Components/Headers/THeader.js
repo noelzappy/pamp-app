@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Text, View } from 'react-native'
-import { Header, Icon } from '@rneui/base'
+import { Text } from 'react-native'
+import { Header } from '@rneui/base'
 import { useTheme } from '@/Hooks'
-import { goBack } from '@/Navigators/utils'
 import { width } from '@/Utils/dimensions'
 
 const THeader = ({ title }) => {
-  const { Fonts, Gutters, Colors, Common, Layout } = useTheme()
+  const { Fonts, Colors, Common } = useTheme()
 
   return (
     <Header
@@ -20,7 +19,7 @@ const THeader = ({ title }) => {
       <Text
         style={[
           Fonts.textLeft,
-          Fonts.textLarge,
+          Fonts.textRegular,
           Common.text.bold,
           Common.text.primary,
           {

@@ -128,7 +128,6 @@ function MyTabBar({ state, descriptors, navigation }) {
   )
 }
 
-// @refresh reset
 const MainNavigator = () => {
   return (
     <Tab.Navigator

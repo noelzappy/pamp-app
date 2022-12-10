@@ -5,7 +5,7 @@ import { Header, Icon } from '@rneui/base'
 import { useTheme } from '@/Hooks'
 import { goBack } from '@/Navigators/utils'
 
-const CHeader = ({ title, subtitle, back }) => {
+const BHeader = ({ title, subtitle, back }) => {
   const { Fonts, Colors, Common } = useTheme()
 
   return (
@@ -32,28 +32,30 @@ const CHeader = ({ title, subtitle, back }) => {
             Fonts.textCenter,
             Fonts.textRegular,
             Common.text.bold,
-            Common.text.accent,
+            Common.text.primary,
           ]}
         >
           {title}
         </Text>
         {subtitle ? (
-          <Text style={[Fonts.textCenter, Common.text.accent]}>{subtitle}</Text>
+          <Text style={[Fonts.textCenter, Common.text.primary]}>
+            {subtitle}
+          </Text>
         ) : null}
       </View>
     </Header>
   )
 }
 
-CHeader.propTypes = {
+BHeader.propTypes = {
   back: PropTypes.bool,
   subtitle: PropTypes.string,
   title: PropTypes.string.isRequired,
 }
 
-CHeader.defaultProps = {
+BHeader.defaultProps = {
   subtitle: '',
   back: true,
 }
 
-export default CHeader
+export default BHeader
