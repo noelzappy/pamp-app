@@ -19,6 +19,7 @@ const VendorItem = ({ vendor, onPress }) => {
         { borderRadius: 10 },
         Gutters.regularBPadding,
         Gutters.smallPadding,
+        Gutters.largeBMargin,
       ]}
       onPress={() => onPress(vendor)}
     >
