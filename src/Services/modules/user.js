@@ -23,4 +23,4 @@ export const userApi = api.injectEndpoints({
   overrideExisting: false,
 })
 
-export const { useGetMeQuery, useUpdateMeMutation } = userApi
+export const { useGetMeQuery, useUpdateMeMutation, useLazyGetMeQuery } = userApi

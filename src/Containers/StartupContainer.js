@@ -4,21 +4,34 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { setDefaultTheme } from '@/Store/Theme'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
+import { useLazyGetMeQuery } from '@/Services/modules/user'
+import { displayError } from '@/Utils/errors'
+import { useDispatch } from 'react-redux'
+import { clearCredentials } from '@/Store/Auth'
 
 const StartupContainer = () => {
   const { Layout, Gutters, Colors } = useTheme()
+  const [getMe, { error }] = useLazyGetMeQuery()
+  const dispatch = useDispatch()
 
   const { t } = useTranslation()
 
   const init = async () => {
-    await new Promise(resolve =>
-      setTimeout(() => {
-        resolve(true)
-      }, 1000),
-    )
+    const { data: me } = await getMe()
     await setDefaultTheme({ theme: 'default', darkMode: null })
-    navigateAndSimpleReset('Main')
+    if (me && me.isVerified) {
+      navigateAndSimpleReset('Main')
+      return
+    }
+    navigateAndSimpleReset('Verification')
   }
+
+  useEffect(() => {
+    if (error) {
+      displayError(error)
+      dispatch(clearCredentials())
+    }
+  }, [error, dispatch])
 
   useEffect(() => {
     init()

@@ -11,7 +11,7 @@ Spacer.propTypes = {
 }
 
 Spacer.defaultProps = {
-  size: 200,
+  size: 100,
 }
 
 export default Spacer

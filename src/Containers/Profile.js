@@ -37,9 +37,8 @@ const Container = () => {
         return
       }
 
-      console.log('response', response)
+      const source = response.assets[0]
 
-      const source = { uri: response.uri }
       setSelectedImage(source)
     })
   }

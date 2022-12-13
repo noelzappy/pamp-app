@@ -16,11 +16,14 @@ const slice = createSlice({
       state.tokens = null
       state.employee = null
     },
+    setUser: (state, { payload: { user } }) => {
+      state.user = user
+    },
   },
   extraReducers: builder => {},
 })
 
-export const { setCredentials, clearCredentials } = slice.actions
+export const { setCredentials, clearCredentials, setUser } = slice.actions
 
 export default slice.reducer
 
