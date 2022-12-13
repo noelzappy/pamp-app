@@ -26,6 +26,9 @@ export default function ({ Colors, ...args }) {
       backgroundReset: {
         backgroundColor: Colors.transparent,
       },
+      backgroundLight: {
+        backgroundColor: Colors.mediumLight,
+      },
       textInput: {
         borderColor: Colors.text,
         backgroundColor: Colors.inputBackground,
@@ -79,6 +82,9 @@ export default function ({ Colors, ...args }) {
         marginRight: 10,
         borderColor: Colors.light,
         borderWidth: 1,
+      },
+      rounded: {
+        borderRadius: RADIUS,
       },
     }),
   }

@@ -18,9 +18,9 @@ export const Colors = {
   light: '#FAFAFA',
   textLight: '#BBB9BC',
   black: '#000000',
-
   success: '#28a745',
   error: '#dc3545',
+  mediumLight: '#F5F5F5',
 }
 
 export const NavigationColors = {

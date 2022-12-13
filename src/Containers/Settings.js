@@ -9,6 +9,7 @@ import { Avatar, Icon, ListItem } from '@rneui/base'
 import { useGetMeQuery } from '@/Services/modules/user'
 import { displayError } from '@/Utils/errors'
 import { getAvatar } from '@/Utils/misc'
+import { clearCredentials } from '@/Store/Auth'
 
 const menuOne = [
   {
@@ -52,6 +53,8 @@ const Container = ({ navigation }) => {
   const { Common, Gutters, Layout, Colors } = useTheme()
 
   const { data: me, isLoading, isFetching, error } = useGetMeQuery()
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (error) {
@@ -181,6 +184,26 @@ const Container = ({ navigation }) => {
               </ListItem>
             )
           })}
+        </View>
+
+        <View style={[Gutters.largeTMargin]}>
+          <ListItem
+            containerStyle={[
+              Gutters.smallBMargin,
+              {
+                backgroundColor: Colors.inputBackground,
+                borderRadius: 10,
+              },
+            ]}
+            onPress={() => {
+              dispatch(clearCredentials())
+            }}
+          >
+            <Icon name="logout" type="material" color={Colors.error} />
+            <ListItem.Content>
+              <ListItem.Title>Logout </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
         </View>
       </ScrollView>
     </SafeAreaView>
