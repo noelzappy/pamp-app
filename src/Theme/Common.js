@@ -62,6 +62,24 @@ export default function ({ Colors, ...args }) {
         color: Colors.primary,
         textDecorationLine: 'underline',
       },
+      pill: {
+        backgroundColor: Colors.light,
+        borderRadius: RADIUS,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        marginRight: 10,
+        borderColor: Colors.primary,
+        borderWidth: 1,
+      },
+      pillActive: {
+        backgroundColor: Colors.primary,
+        borderRadius: RADIUS,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        marginRight: 10,
+        borderColor: Colors.light,
+        borderWidth: 1,
+      },
     }),
   }
 }
