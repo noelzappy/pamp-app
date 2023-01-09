@@ -13,7 +13,6 @@ import { miscApi } from '@/Services/modules/misc'
 
 const Container = ({ route, navigation }) => {
   const { categoryId } = route?.params || {}
-
   const { t } = useTranslation()
   const { Common, Gutters, Layout, Colors } = useTheme()
   const dispatch = useDispatch()
@@ -82,7 +81,7 @@ const Container = ({ route, navigation }) => {
         contentContainerStyle={[Gutters.smallHPadding]}
         refreshControl={
           <RefreshControl
-            refreshing={vendors.isLoading || categories.isFetchingNextPage}
+            refreshing={vendors.isLoading || categories.isLoading}
             onRefresh={vendors.refetch}
           />
         }

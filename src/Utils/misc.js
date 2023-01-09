@@ -1,5 +1,6 @@
 import FastImage from 'react-native-fast-image'
-const { Config } = require('@/Config')
+import moment from 'moment'
+import { Config } from '@/Config'
 
 export const getAvatar = user => {
   if (!user || !user.image) {
@@ -54,4 +55,49 @@ export const getImageUrl = imgUrl => {
     uri: url,
     priority: FastImage.priority.high,
   }
+}
+
+export const getVendorOpenStatus = vendor => {
+  const today = moment().day() + 1
+
+  if (!vendor) {
+    return 'Closed'
+  }
+
+  const { workHours } = vendor
+
+  const todayWorkHours = workHours[today]
+
+  if (!todayWorkHours) {
+    return 'Closed'
+  }
+
+  const { start, end, enabled } = todayWorkHours
+
+  if (!enabled) {
+    return 'Closed'
+  }
+
+  const now = moment().format('HH:mm')
+  const isOpen = moment(now, 'HH:mm').isBetween(
+    moment(start, 'HH:mm'),
+    moment(end, 'HH:mm'),
+  )
+
+  if (isOpen) {
+    return 'Open'
+  }
+
+  return 'Closed'
+}
+
+export const getDuration = minutes => {
+  const hours = Math.floor(minutes / 60)
+  const mins = minutes % 60
+
+  if (hours > 0) {
+    return `${hours}h ${mins}mins`
+  }
+
+  return `${mins}mins`
 }

@@ -11,8 +11,41 @@ export const vendorApi = api.injectEndpoints({
         }
       },
     }),
+
+    getVendor: build.query({
+      query: id => {
+        return {
+          url: `/vendors/${id}`,
+          method: 'GET',
+        }
+      },
+    }),
+
+    getVendorServices: build.query({
+      query: query => {
+        const params = new URLSearchParams(query)
+        return {
+          url: '/services' + '?' + params,
+          method: 'GET',
+        }
+      },
+    }),
+
+    getVendorStaffs: build.query({
+      query: query => {
+        const params = new URLSearchParams(query)
+        return {
+          url: '/staffs' + '?' + params,
+          method: 'GET',
+        }
+      },
+    }),
   }),
   overrideExisting: false,
 })
 
-export const { useGetVendorsQuery } = vendorApi
+export const {
+  useGetVendorsQuery,
+  useLazyGetVendorQuery,
+  useLazyGetVendorServicesQuery,
+} = vendorApi

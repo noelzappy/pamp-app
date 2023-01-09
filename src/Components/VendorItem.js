@@ -67,8 +67,8 @@ const VendorItem = ({ vendor, onPress }) => {
                 width: 0,
                 height: 12,
               },
-              shadowOpacity: 0.58,
-              shadowRadius: 16.0,
+              shadowOpacity: 0.18,
+              shadowRadius: 10.0,
 
               elevation: 24,
             },

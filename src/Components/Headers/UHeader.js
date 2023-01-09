@@ -58,11 +58,12 @@ const UHeader = ({ title }) => {
 UHeader.propTypes = {
   back: PropTypes.bool,
   subtitle: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 }
 
 UHeader.defaultProps = {
   subtitle: '',
+  title: '',
   back: true,
 }
 
