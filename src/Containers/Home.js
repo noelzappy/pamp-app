@@ -9,46 +9,48 @@ import { Input, Icon } from '@rneui/base'
 import Pill from '@/Components/Pills'
 import { vendorApi } from '@/Services/modules/vendor'
 import { displayError } from '@/Utils/errors'
-
-const pillItems = [
-  {
-    title: 'All',
-    onPress: () => {},
-    active: true,
-    id: 'all',
-  },
-  {
-    title: 'Most Popular',
-    onPress: () => {},
-    active: false,
-    id: 'popular',
-  },
-  {
-    title: 'New',
-    onPress: () => {},
-    active: false,
-    id: 'new',
-  },
-
-  {
-    title: 'Most Popular',
-    onPress: () => {},
-    active: false,
-    id: 'popular',
-  },
-  {
-    title: 'New',
-    onPress: () => {},
-    active: false,
-    id: 'new',
-  },
-]
+import { miscApi } from '@/Services/modules/misc'
 
 const Container = () => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
   const dispatch = useDispatch()
   const vendors = useInfiniteQuery(vendorApi.endpoints.getVendors)
+  const categories = useInfiniteQuery(miscApi.endpoints.getCategories)
+  const [selectedCategory, setSelectedCategory] = useState('all')
+
+  const myCategories = () => {
+    if (!categories.data)
+      return [
+        {
+          title: 'All',
+          onPress: () => {
+            setSelectedCategory('all')
+          },
+
+          id: 'all',
+        },
+      ]
+    const cat = categories.data.map(item => ({
+      ...item,
+      onPress: () => {
+        setSelectedCategory(item.id)
+      },
+      title: item.name,
+    }))
+
+    return [
+      {
+        title: 'All',
+        onPress: () => {
+          setSelectedCategory('all')
+        },
+        active: true,
+        id: 'all',
+      },
+      ...cat,
+    ]
+  }
 
   useEffect(() => {
     if (vendors.error) {
@@ -60,6 +62,17 @@ const Container = () => {
     console.log(vendor)
   }
 
+  useEffect(() => {
+    if (selectedCategory === 'all') {
+      vendors.trigger()
+    } else {
+      vendors.trigger({
+        category: selectedCategory,
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory])
+
   return (
     <SafeAreaView style={[Layout.fill, Common.backgroundPrimary]}>
       <FlatList
@@ -67,7 +80,7 @@ const Container = () => {
         contentContainerStyle={[Gutters.smallHPadding]}
         refreshControl={
           <RefreshControl
-            refreshing={vendors.isLoading}
+            refreshing={vendors.isLoading || categories.isFetchingNextPage}
             onRefresh={vendors.refetch}
           />
         }
@@ -85,7 +98,7 @@ const Container = () => {
                 <Icon name="search" type="feather" color={Colors.textLight} />
               }
             />
-            <Pill pillItems={pillItems} />
+            <Pill pillItems={myCategories()} activeItem={selectedCategory} />
             <Spacer size={20} />
           </Fragment>
         }
