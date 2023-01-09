@@ -12,7 +12,7 @@ const THeader = ({ title }) => {
     <Header
       containerStyle={[
         {
-          backgroundColor: Colors.light,
+          backgroundColor: Colors.mediumLight,
         },
       ]}
     >

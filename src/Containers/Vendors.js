@@ -11,7 +11,7 @@ import { vendorApi } from '@/Services/modules/vendor'
 import { displayError } from '@/Utils/errors'
 import { miscApi } from '@/Services/modules/misc'
 
-const Container = ({ route }) => {
+const Container = ({ route, navigation }) => {
   const { categoryId } = route?.params || {}
 
   const { t } = useTranslation()
@@ -61,7 +61,7 @@ const Container = ({ route }) => {
   }, [vendors.error])
 
   const onVendorPress = vendor => {
-    console.log(vendor)
+    navigation.navigate('SingleVendor', { vendorId: vendor.id })
   }
 
   useEffect(() => {

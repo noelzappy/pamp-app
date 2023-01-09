@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { ScrollView, TouchableOpacity, Text } from 'react-native'
 import { useTheme } from '@/Hooks'
 
-const Pill = ({ pillItems, activeItem }) => {
+const Pill = ({ pillItems, activeItem, disabled }) => {
   const { Common, Fonts, Colors } = useTheme()
 
   return (
@@ -14,6 +14,7 @@ const Pill = ({ pillItems, activeItem }) => {
             key={index}
             style={[Common.pill, activeItem === item.id && Common.pillActive]}
             onPress={item.onPress}
+            disabled={disabled}
           >
             <Text
               style={[

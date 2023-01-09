@@ -16,7 +16,7 @@ const UHeader = ({ title }) => {
     <Header
       containerStyle={[
         {
-          backgroundColor: Colors.light,
+          backgroundColor: Colors.mediumLight,
         },
       ]}
     >

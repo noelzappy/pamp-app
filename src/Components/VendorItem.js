@@ -38,12 +38,12 @@ const VendorItem = ({ vendor, onPress }) => {
           />
         </View>
         <Avatar
-          size="large"
+          size="medium"
           source={getVendorLogo(vendor)}
           containerStyle={[
             {
               position: 'absolute',
-              bottom: -10,
+              bottom: -8,
               left: 5,
               borderColor: Colors.white,
               borderWidth: 2,
@@ -75,8 +75,8 @@ const VendorItem = ({ vendor, onPress }) => {
             Gutters.smallVPadding,
           ]}
         >
-          <Icon name="star" size={20} color={Colors.primary} type="antdesign" />
-          <Text style={[Fonts.textRegular, Fonts.textLeft, Common.text.bold]}>
+          <Icon name="star" size={18} color={Colors.primary} type="antdesign" />
+          <Text style={[Fonts.textSmall, Fonts.textLeft, Common.text.bold]}>
             {vendor.averageRating === 5
               ? '5.00'
               : 5 * Number(vendor.averageRating)}
@@ -92,8 +92,9 @@ const VendorItem = ({ vendor, onPress }) => {
         pillItems={vendor.tags.map(item => ({
           title: item,
           onPress: () => {},
-          active: false,
         }))}
+        activeItem="all"
+        disabled
       />
       <Spacer size={8} />
       <Text style={[Fonts.textSmall, Fonts.textLeft]}>{vendor.address}</Text>
