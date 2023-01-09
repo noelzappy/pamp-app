@@ -12,7 +12,7 @@ import { useInfiniteQuery, useTheme } from '@/Hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLazyGetVendorQuery, vendorApi } from '@/Services/modules/vendor'
 import { displayError } from '@/Utils/errors'
-import { Badge, Icon, ListItem, CheckBox, Button } from '@rneui/base'
+import { Badge, Icon, ListItem, Button } from '@rneui/base'
 import { width } from '@/Utils/dimensions'
 import { Pills, Spacer, StaffList, VendorCarousel } from '@/Components'
 import { getDuration, getVendorOpenStatus } from '@/Utils/misc'
@@ -43,7 +43,17 @@ const Container = ({ route, navigation }) => {
     staffs.refetch()
   }
 
-  const onBook = () => {}
+  const onBook = () => {
+    if (!selectedService || !vendor) return
+
+    const params = {
+      vendor,
+      selectedService,
+      selectedStaff,
+    }
+
+    navigation.navigate('BookingDate', params)
+  }
 
   useEffect(() => {
     if (vendorId) {

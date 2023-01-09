@@ -6,7 +6,13 @@ import { useTheme } from '@/Hooks'
 import MainNavigator from './Main'
 import { navigationRef } from './utils'
 import VerificationStack from './VerificationStack'
-import { StartupContainer, Profile, Vendors, SingleVendor } from '@/Containers'
+import {
+  StartupContainer,
+  Profile,
+  Vendors,
+  SingleVendor,
+  BookingDate,
+} from '@/Containers'
 
 const Stack = createStackNavigator()
 
@@ -32,6 +38,7 @@ const ApplicationNavigator = () => {
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Vendors" component={Vendors} />
           <Stack.Screen name="SingleVendor" component={SingleVendor} />
+          <Stack.Screen name="BookingDate" component={BookingDate} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
