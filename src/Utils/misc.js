@@ -41,3 +41,17 @@ export const getVendorLogo = vendor => {
     priority: FastImage.priority.high,
   }
 }
+
+export const getImageUrl = imgUrl => {
+  if (!imgUrl) {
+    return {
+      uri: 'https://picsum.photos/200/300',
+    }
+  }
+
+  const url = Config.BASE_URL + '/' + imgUrl
+  return {
+    uri: url,
+    priority: FastImage.priority.high,
+  }
+}

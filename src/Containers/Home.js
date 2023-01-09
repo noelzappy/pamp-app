@@ -1,77 +1,22 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import { View, Text, ScrollView, RefreshControl, FlatList } from 'react-native'
-import { useDispatch } from 'react-redux'
+import React, { Fragment } from 'react'
+import { RefreshControl, FlatList } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useInfiniteQuery, useTheme } from '@/Hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Empty, Spacer, UHeader, VendorItem } from '@/Components'
+import { CategoryItem, Empty, Spacer, UHeader } from '@/Components'
 import { Input, Icon } from '@rneui/base'
 import Pill from '@/Components/Pills'
-import { vendorApi } from '@/Services/modules/vendor'
-import { displayError } from '@/Utils/errors'
 import { miscApi } from '@/Services/modules/misc'
 
-const Container = () => {
+const Container = ({ navigation }) => {
   const { t } = useTranslation()
-  const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
-  const dispatch = useDispatch()
-  const vendors = useInfiniteQuery(vendorApi.endpoints.getVendors)
+  const { Common, Gutters, Layout, Colors } = useTheme()
+
   const categories = useInfiniteQuery(miscApi.endpoints.getCategories)
-  const [selectedCategory, setSelectedCategory] = useState('all')
 
-  const myCategories = () => {
-    if (!categories.data)
-      return [
-        {
-          title: 'All',
-          onPress: () => {
-            setSelectedCategory('all')
-          },
-
-          id: 'all',
-        },
-      ]
-    const cat = categories.data.map(item => ({
-      ...item,
-      onPress: () => {
-        setSelectedCategory(item.id)
-      },
-      title: item.name,
-    }))
-
-    return [
-      {
-        title: 'All',
-        onPress: () => {
-          setSelectedCategory('all')
-        },
-        active: true,
-        id: 'all',
-      },
-      ...cat,
-    ]
+  const onItemPress = item => {
+    navigation.navigate('Vendors', { categoryId: item.id })
   }
-
-  useEffect(() => {
-    if (vendors.error) {
-      displayError(vendors.error)
-    }
-  }, [vendors.error])
-
-  const onVendorPress = vendor => {
-    console.log(vendor)
-  }
-
-  useEffect(() => {
-    if (selectedCategory === 'all') {
-      vendors.trigger()
-    } else {
-      vendors.trigger({
-        category: selectedCategory,
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory])
 
   return (
     <SafeAreaView style={[Layout.fill, Common.backgroundPrimary]}>
@@ -80,13 +25,13 @@ const Container = () => {
         contentContainerStyle={[Gutters.smallHPadding]}
         refreshControl={
           <RefreshControl
-            refreshing={vendors.isLoading || categories.isFetchingNextPage}
-            onRefresh={vendors.refetch}
+            refreshing={categories.isFetchingNextPage}
+            onRefresh={categories.refetch}
           />
         }
-        data={vendors.data}
+        data={categories.data}
         renderItem={({ item }) => (
-          <VendorItem vendor={item} onPress={onVendorPress} />
+          <CategoryItem item={item} onPress={onItemPress} />
         )}
         ListHeaderComponent={
           <Fragment>
@@ -98,12 +43,12 @@ const Container = () => {
                 <Icon name="search" type="feather" color={Colors.textLight} />
               }
             />
-            <Pill pillItems={myCategories()} activeItem={selectedCategory} />
+            <Pill pillItems={[]} />
             <Spacer size={20} />
           </Fragment>
         }
         ListEmptyComponent={() => {
-          if (vendors.isLoading || vendors.isFetchingNextPage) return null
+          if (categories.isLoading || categories.isFetchingNextPage) return null
           return <Empty />
         }}
       />

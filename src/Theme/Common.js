@@ -21,13 +21,13 @@ export default function ({ Colors, ...args }) {
     text: textStyles({ Colors, ...args }),
     ...StyleSheet.create({
       backgroundPrimary: {
-        backgroundColor: Colors.light,
+        backgroundColor: Colors.mediumLight,
       },
       backgroundReset: {
         backgroundColor: Colors.transparent,
       },
       backgroundLight: {
-        backgroundColor: Colors.mediumLight,
+        backgroundColor: Colors.light,
       },
       textInput: {
         borderColor: Colors.text,

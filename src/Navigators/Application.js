@@ -2,11 +2,11 @@ import React from 'react'
 import { SafeAreaView, StatusBar } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { StartupContainer, Profile } from '@/Containers'
 import { useTheme } from '@/Hooks'
 import MainNavigator from './Main'
 import { navigationRef } from './utils'
 import VerificationStack from './VerificationStack'
+import { StartupContainer, Profile, Vendors } from '@/Containers'
 
 const Stack = createStackNavigator()
 
@@ -30,6 +30,7 @@ const ApplicationNavigator = () => {
           />
 
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Vendors" component={Vendors} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
