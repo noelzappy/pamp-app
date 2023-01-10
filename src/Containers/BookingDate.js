@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { BHeader } from '@/Components'
+import { BHeader, StripCalendar } from '@/Components'
 
 const Container = ({ route }) => {
   const { t } = useTranslation()
@@ -14,6 +14,8 @@ const Container = ({ route }) => {
       <BHeader title="Select Date & Time" />
 
       <ScrollView style={Layout.fill}>
+        <StripCalendar />
+
         <Text>Hello World</Text>
       </ScrollView>
     </SafeAreaView>
